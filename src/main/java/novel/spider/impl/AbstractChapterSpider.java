@@ -20,28 +20,16 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import novel.spider.NovelSiteEnum;
 import novel.spider.entitys.Chapter;
 import novel.spider.interfaces.IChapterSpider;
+import novel.spider.util.NovelSpiderUtil;
 
-public class AbstractChapterSpider implements IChapterSpider {
+/*
+ * 抓取任意网站章节列表
+ */
+public abstract class AbstractChapterSpider extends AbstractSpider implements IChapterSpider {
 
-	
-	protected String crawl(String url)throws Exception{
-		//通过build放回一个httpClient实体
-		try(CloseableHttpClient httpClient=HttpClientBuilder.create().build();
-				//httpClient.getParams().setParameter("http.protocol.content-charset", "gbk");
-				CloseableHttpResponse httpResponse=httpClient.execute(new HttpGet(url));){
-			//HttpGet httpGet=new HttpGet(url);
-			//通过httpClient进行get方法
-			String result=EntityUtils.toString(httpResponse.getEntity(),"utf-8");//通过EntityUtils工具类返回抓取结果
-			return result;
-		}catch (Exception e) {
-			// TODO: handle exception
-			//失败再抛个异常
-			throw new RuntimeException(e);
-		}
-		
-	}
 	
 	@Override
 	public List<Chapter> getChapter(String url) {
@@ -51,13 +39,15 @@ public class AbstractChapterSpider implements IChapterSpider {
 			String result=crawl(url);
 			//System.out.println(result);
 			Document doc=Jsoup.parse(result);
-			Elements as=doc.select("#list dd a");
+			doc.setBaseUri(url);
+			Elements as=doc.select(NovelSpiderUtil.getContext(NovelSiteEnum.getEnumByUrl(url)).get("chapter-list-selector"));
 			List<Chapter> chapters=new ArrayList<>();
 			for(Element a:as){
 				//System.out.println(a);
 				Chapter chapter=new Chapter();
 				chapter.setTitle(a.text());
-				chapter.setUrl("http://www.biquke.com/bq/22/22585/"+a.attr("href"));
+				//chapter.setUrl("http://www.biquke.com/bq/22/22585/"+a.attr("href"));
+				chapter.setUrl(a.absUrl("href"));//无论绝对相对都能用
 				chapters.add(chapter);
 			}
 			return chapters;

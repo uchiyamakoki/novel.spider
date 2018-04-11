@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sites>
+	<site>
+		<title>笔趣阁</title>
+		<charset>utf-8</charset>
+		<url>http://www.biquke.com</url>
+		<chapter-list-selector>#list dd a</chapter-list-selector>
+		<chapter-detail-title-selector>.bookname h1,0</chapter-detail-title-selector>
+		<chapter-detail-content-selector>#content</chapter-detail-content-selector>
+		<chapter-detail-prev-selector>.bottem a,1</chapter-detail-prev-selector>
+		<chapter-detail-next-selector>.bottem a,3</chapter-detail-next-selector>
+	</site>
+	<site>
+		<title>顶点小说</title>
+		<charset>gbk</charset>
+		<url>http://www.booktxt.net</url>
+		<chapter-list-selector>#list dd a</chapter-list-selector>
+		<chapter-detail-title-selector>.bookname h1,0</chapter-detail-title-selector>
+		<chapter-detail-content-selector>#content</chapter-detail-content-selector>
+		<chapter-detail-prev-selector>.bottem2 a,1</chapter-detail-prev-selector>
+		<chapter-detail-next-selector>.bottem2 a,3</chapter-detail-next-selector>
+	</site>
+	<site>
+		<title>八一中文网</title>
+		<charset>gbk</charset>
+		<url>https://www.81zw.net</url>
+		<chapter-list-selector>#list dd a</chapter-list-selector>
+		<chapter-detail-title-selector>.bookname h1,0</chapter-detail-title-selector>
+		<chapter-detail-content-selector>#content</chapter-detail-content-selector>
+		<chapter-detail-prev-selector>.bottem2 a,0</chapter-detail-prev-selector>
+		<chapter-detail-next-selector>.bottem2 a,2</chapter-detail-next-selector>
+	</site>
+</sites>
